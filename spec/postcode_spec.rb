@@ -14,11 +14,12 @@ describe Postcodesio do
     end
 
     it "should have a results hash" do
-      expect(@response).to be_a Hash
+      expect(@response['result']).to be_a Hash
     end
 
     it "should return a postcode between 5-7 in length"  do
-      expect((@response)['result']['postcode'].length-1).to be_between(5,7)
+      # expect((@response)['result']['postcode'].length-1).to be_between(5,7)
+      expect((@response)['result']['postcode'].gsub(' ', '').length).to be_between(5,7)
     end
 
     it "should return an quality key integer between 1-9" do
@@ -109,6 +110,7 @@ describe Postcodesio do
     end
 
     it "should return the first query as the first postcode in the response" do
+      expect(@response['result'].first['result']['postcode']).to include('TW10 6TF')
     end
 
     it "should return the second query as the first postcode in the response" do
